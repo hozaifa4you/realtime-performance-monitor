@@ -20,7 +20,7 @@ if (cluster.isPrimary) {
 
    httpServer.listen(3333);
 
-   for (let i = 0; i < numCPUs.length; i++) {
+   for (let i = 0; i < numCPUs; i++) {
       cluster.fork();
    }
 
