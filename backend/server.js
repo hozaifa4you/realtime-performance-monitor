@@ -3,6 +3,7 @@ const http = require("http");
 const { Server } = require("socket.io");
 const { setupMaster, setupWorker } = require("@socket.io/sticky");
 const { createAdapter, setupPrimary } = require("@socket.io/cluster-adapter");
+const socketMin = require("./socket-main");
 
 const numCPUs = require("os").cpus().length;
 
@@ -39,9 +40,5 @@ if (cluster.isPrimary) {
    io.adapter(createAdapter());
    setupWorker(io);
 
-   io.on("connection", (socket) => {
-      console.log("Someone connected on worker: " + process.pid);
-
-      socket.emit("welcome", "Welcome to RTP Monitor");
-   });
+   socketMin(io);
 }

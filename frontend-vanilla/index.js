@@ -1,5 +1,38 @@
 const { log } = require("console");
 const os = require("os");
+const io = require("socket.io-client");
+
+const options = {
+   auth: {
+      token: "react-token",
+   },
+};
+
+const socket = io("http://localhost:3333", options);
+
+socket.on("connect", () => {
+   let macA = "";
+
+   const networkInterfaces = os.networkInterfaces();
+   for (let key in networkInterfaces) {
+      const isInternalFacing = !networkInterfaces[key][0].internal;
+      if (isInternalFacing) {
+         macA = networkInterfaces[key][0].mac;
+         break;
+      }
+   }
+
+   const perfDataInterval = setInterval(async () => {
+      const prefData = await performanceLoadData();
+      prefData.mac = macA;
+
+      socket.emit("prefData", prefData);
+   }, 1000);
+
+   socket.on("disconnect", () => {
+      clearInterval(perfDataInterval);
+   });
+});
 
 const cupAverage = () =>
    new Promise((resolve, reject) => {
@@ -67,7 +100,7 @@ const performanceLoadData = () =>
 
 const run = async () => {
    const data = await performanceLoadData();
-   console.log(data);
+   // console.log(data);
 };
 
 run();
