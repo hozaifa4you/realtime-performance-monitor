@@ -90,7 +90,7 @@ const performanceLoadData = () =>
          freeMem,
          totalMem,
          usedMem,
-         memUseage,
+         memUsage,
          cpuType,
          numCores,
          cpuSpeed,
