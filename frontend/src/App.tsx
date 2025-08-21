@@ -20,9 +20,9 @@ function App() {
    console.log(performanceData);
 
    return (
-      <>
+      <div className="container">
          <h1>RTP Monitor</h1>
-      </>
+      </div>
    );
 }
 

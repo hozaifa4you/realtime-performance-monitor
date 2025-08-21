@@ -15,9 +15,6 @@ const socketMin = (io) => {
       socket.emit("welcome", "Welcome to RTP Monitor");
 
       socket.on("prefData", (data) => {
-         console.log("Tick...");
-         console.log(data);
-
          io.to("react-client").emit("prefData", data);
       });
    });
