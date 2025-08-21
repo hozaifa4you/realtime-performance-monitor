@@ -3,9 +3,9 @@ const socketMin = (io) => {
       console.log("Someone connected on worker: " + process.pid);
 
       const token = socket.handshake.auth.token;
-      if (token === "react-token") {
+      if (token === "react-client-connection") {
          socket.join("react-client");
-      } else if (token === "node-token") {
+      } else if (token === "node-client-connection") {
          socket.join("node-client");
       } else {
          socket.disconnect();
@@ -17,6 +17,8 @@ const socketMin = (io) => {
       socket.on("prefData", (data) => {
          console.log("Tick...");
          console.log(data);
+
+         io.to("react-client").emit("prefData", data);
       });
    });
 };

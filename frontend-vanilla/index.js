@@ -4,7 +4,7 @@ const io = require("socket.io-client");
 
 const options = {
    auth: {
-      token: "react-token",
+      token: "node-client-connection",
    },
 };
 
